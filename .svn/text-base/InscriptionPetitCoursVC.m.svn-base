@@ -1,0 +1,204 @@
+//
+//  InscriptionPetitCoursVC.m
+//  iMines-1
+//
+//  Created by François de la Taste on 12/09/10.
+//  Copyright 2010 Mines ParisTech. All rights reserved.
+//
+
+#import "InscriptionPetitCoursVC.h"
+#import "ASIFormDataRequest.h"
+
+
+@implementation InscriptionPetitCoursVC
+@synthesize nom, prenom, promo, email, nomPC, matierePC, adressePC, niveauPC, commentairePC, selectedPetitCours, keyboardShown, activeField;
+/*
+ // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        // Custom initialization
+    }
+    return self;
+}
+*/
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+
+{
+	NSLog(@"begin editing in text field");
+	UIBarButtonItem* doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
+	self.navigationItem.rightBarButtonItem = doneItem;
+    activeField = textField;
+	
+}
+- (void)donePressed {
+	[activeField resignFirstResponder];
+	self.navigationItem.rightBarButtonItem = nil;
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+
+{
+	
+    activeField = nil;
+	
+}
+
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWasShown:)
+												 name:UIKeyboardDidShowNotification object:nil];
+	
+    [[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(keyboardWasHidden:)
+												 name:UIKeyboardDidHideNotification object:nil];
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+	if (keyboardShown)
+		
+        return;
+	
+	
+	
+    NSDictionary* info = [aNotification userInfo];
+	
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+	
+    CGRect bkgndRect = activeField.superview.frame;
+	
+    bkgndRect.size.height += kbSize.height;
+	
+    [activeField.superview setFrame:bkgndRect];
+	
+    [scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y) animated:YES];
+	
+	
+	
+    keyboardShown = YES;}
+
+
+// Called when the UIKeyboardDidHideNotification is sent
+- (void)keyboardWasHidden:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+	
+    // Get the size of the keyboard.
+    NSValue* aValue = [info objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGSize keyboardSize = [aValue CGRectValue].size;
+	
+    // Reset the height of the scroll view to its original value
+    CGRect viewFrame = [scrollView frame];
+    viewFrame.size.height += keyboardSize.height;
+    scrollView.frame = viewFrame;
+	
+    keyboardShown = NO;
+}
+
+- (id)initWithPetitCours:(NSMutableDictionary *)pc {
+	selectedPetitCours = pc;
+	NSLog(@"Received PC : %@", [selectedPetitCours objectForKey:@"nom"]);
+	keyboardShown = FALSE;
+	[self registerForKeyboardNotifications];
+	return [super init];
+}
+
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	nomPC.text = [selectedPetitCours objectForKey:@"nom"];
+	matierePC.text = [selectedPetitCours objectForKey:@"matiere"];
+	niveauPC.text = [selectedPetitCours objectForKey:@"niveau"];
+	commentairePC.text = [selectedPetitCours objectForKey:@"commentaire"];
+	adressePC.text = [selectedPetitCours objectForKey:@"adresse"];
+    [super viewDidLoad];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[textField resignFirstResponder];
+	return YES;
+}
+
+- (IBAction)sIncrirePressed {
+
+	NSLog(@"je veux m'inscrire !");
+	if (keyboardShown) {
+		[activeField resignFirstResponder];
+		self.navigationItem.rightBarButtonItem = nil;
+	}
+	// Vérification des données :
+	
+	if ([nom.text isEqualToString:@""] || [prenom.text isEqualToString:@""] || [email.text isEqualToString:@""] || [promo.text isEqualToString:@""]) {
+	
+		NSLog(@"Champ vide !");
+		UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Erreur :" message:@"Un des champs n'est pas rempli !" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[errorAlert show];
+		
+	}
+	else {
+		NSLog(@"Formulaire bien rempli");
+		// Construction de la requête
+		NSURL *urlPC = [[NSURL alloc] initWithString:@"http://www.monbde.eu/petitscours/iMines/InscriptionPC.php"];
+		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlPC];
+		[request setPostValue:nom.text forKey:@"nom"];
+		[request setPostValue:prenom.text forKey:@"prenom"];
+		[request setPostValue:promo.text forKey:@"annee"];
+		[request setPostValue:email.text forKey:@"email"];
+		[request setPostValue:[selectedPetitCours objectForKey:@"id"] forKey:@"id"];
+		[request start];
+		NSError *error = [request error];
+		if (!error) {
+			NSLog(@"Pas d'erreur !");
+			NSString *response = [request responseString];
+			NSLog(@"Reponse : %@", response);
+			UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Demande enregistrée !" message:@"Merci et à bientôt..." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[errorAlert show];
+			[self.navigationController popViewControllerAnimated:YES];
+		}
+		else {
+			UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Erreur :" message:@"Impossible d'envoyer la requête" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[errorAlert show];
+		}
+		
+		
+	}
+	
+	
+}
+
+		
+		
+
+/*
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+*/
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+@end

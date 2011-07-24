@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Direction</key>
+	<dict>
+		<key>nom</key>
+		<string>Benoît Legait</string>
+		<key>email</key>
+		<string>benoit.legait@mines-paristech.fr</string>
+		<key>tel</key>
+		<string>0140519443</string>
+		<key>fax</key>
+		<string>0140519082</string>
+	</dict>
+	<key>Direction des Etudes</key>
+	<dict>
+		<key>nom</key>
+		<string>Nicolas Cheimanoff</string>
+		<key>email</key>
+		<string>nicolas.cheimanoff@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0140519136</string>
+		<key>fax</key>
+		<string>0143251799</string>
+	</dict>
+	<key>Délégation de Sophia Antipolis</key>
+	<dict>
+		<key>nom</key>
+		<string>Jean-François Agassant</string>
+		<key>email</key>
+		<string>jean-francois.agassant@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0493957523</string>
+		<key>fax</key>
+		<string>0492389752</string>
+	</dict>
+	<key>Délégation d&apos;Evry</key>
+	<dict>
+		<key>nom</key>
+		<string>Esteban Busso</string>
+		<key>email</key>
+		<string>esteban.busso@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0160763001</string>
+		<key>fax</key>
+		<string></string>
+	</dict>
+	<key>Délégation de Fontainebleau</key>
+	<dict>
+		<key>nom</key>
+		<string>Michel Franz</string>
+		<key>email</key>
+		<string>michel.franz@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0164694723</string>
+		<key>fax</key>
+		<string></string>
+	</dict>
+	<key>Agent Comptable</key>
+	<dict>
+		<key>nom</key>
+		<string>Jean Christophe Giocanti</string>
+		<key>email</key>
+		<string>jean-christophe.giocanti@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0140519269</string>
+		<key>fax</key>
+		<string></string>
+	</dict>
+	<key>Secrétariat Général</key>
+	<dict>
+		<key>nom</key>
+		<string>Patricia Fournier</string>
+		<key>email</key>
+		<string>patricia.fournier@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0140519053</string>
+		<key>fax</key>
+		<string>0140519250</string>
+	</dict>
+	<key>Direction des corps techniques de l&apos;Etat</key>
+	<dict>
+		<key>nom</key>
+		<string>Marie-Solange Tissier</string>
+		<key>email</key>
+		<string>marie-solange.tissier@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0140519022</string>
+		<key>fax</key>
+		<string>0140519287</string>
+	</dict>
+	<key>Direction de la Recherche</key>
+	<dict>
+		<key>nom</key>
+		<string>Michel Schmitt</string>
+		<key>email</key>
+		<string>michel.schmitt@mines-paristech.fr </string>
+		<key>tel</key>
+		<string>0140519245</string>
+		<key>fax</key>
+		<string>0140519271</string>
+	</dict>
+</dict>
+</plist>

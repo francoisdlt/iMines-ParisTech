@@ -1,0 +1,20 @@
+//
+//  IntegrerTVC.h
+//  iMines-1
+//
+//  Created by François de la Taste on 22/11/10.
+//  Copyright 2010 Mines ParisTech. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface IntegrerTVC : UITableViewController {
+	
+	NSMutableArray *sections;
+
+}
+
+@property (nonatomic, retain) NSMutableArray *sections;
+
+@end

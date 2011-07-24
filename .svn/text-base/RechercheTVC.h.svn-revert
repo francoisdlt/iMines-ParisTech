@@ -1,0 +1,18 @@
+//
+//  RechercheTVC.h
+//  iMines-1
+//
+//  Created by François de la Taste on 09/10/10.
+//  Copyright 2010 Mines ParisTech. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface RechercheTVC : UITableViewController {
+	
+	NSMutableArray *rechercheArray;
+}
+
+@property (nonatomic, retain) NSMutableArray *rechercheArray;
+@end

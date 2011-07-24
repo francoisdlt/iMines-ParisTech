@@ -1,0 +1,23 @@
+//
+//  TrombiTVC.h
+//  iMines-1
+//
+//  Created by François de la Taste on 31/08/10.
+//  Copyright 2010 Mines ParisTech. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "Eleve.h"
+
+@interface TrombiTVC : UITableViewController {
+	
+	NSManagedObjectContext *managedObjectContext;
+	NSMutableArray *elevesArray;
+
+}
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+-(void)addEleve:(Eleve *)eleve;
+
+@end

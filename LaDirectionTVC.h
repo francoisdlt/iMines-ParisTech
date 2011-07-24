@@ -1,0 +1,23 @@
+//
+//  LaDirectionTVC.h
+//  iMines-1
+//
+//  Created by François de la Taste on 22/07/10.
+//  Copyright 2010 Mines ParisTech. All rights reserved.
+//
+//  Test SVN
+//
+
+#import <UIKit/UIKit.h>
+
+
+@interface LaDirectionTVC : UITableViewController {
+	
+	NSMutableArray *directionArray;
+	NSDictionary *annuaireDirection;
+
+}
+
+@property (nonatomic, retain) NSMutableArray *directionArray;
+@property (nonatomic, retain) NSDictionary *annuaireDirection;
+@end

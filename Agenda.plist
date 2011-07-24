@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>date</key>
+		<string>Date de l&apos;évènement</string>
+		<key>description</key>
+		<string>Description de l&apos;évènement</string>
+		<key>image</key>
+		<string></string>
+		<key>nom</key>
+		<string>Sélectionne un évènement</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>A partir du 30 septembre</string>
+		<key>description</key>
+		<string>Rentrée et départ en stage géologie pour les élèves admis sur voie universitaire</string>
+		<key>image</key>
+		<string>rentree-AST.jpg</string>
+		<key>nom</key>
+		<string>Rentrée AST</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>04/09/11</string>
+		<key>description</key>
+		<string>Rentrée des élèves de première année du cycle Ingénieur Civil</string>
+		<key>image</key>
+		<string>rentree1A.jpg</string>
+		<key>nom</key>
+		<string>Rentrée 1A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>07/09/11</string>
+		<key>description</key>
+		<string>Rentrée des élèves de deuxième année</string>
+		<key>image</key>
+		<string>rentree2A.jpg</string>
+		<key>nom</key>
+		<string>Rentrée 2A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Deuxième jeudi de septembre</string>
+		<key>description</key>
+		<string>Interpromo : tournoi sportif entre les 1A et les 2A</string>
+		<key>image</key>
+		<string>interpromo.jpg</string>
+		<key>nom</key>
+		<string>Interpromo</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 16 au 20 septembre</string>
+		<key>description</key>
+		<string>Week end d&apos;Intégration organisé par une équipe d&apos;une quizaine de 2A pour les 1A</string>
+		<key>image</key>
+		<string>wei.jpg</string>
+		<key>nom</key>
+		<string>WEI</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Dernier week end de septembre</string>
+		<key>description</key>
+		<string>ASTI : week end d&apos;intégration organisé par une quinzaine de 2A pour intégrer les admis par voie universitaire et les visiteurs</string>
+		<key>image</key>
+		<string>asti.jpg</string>
+		<key>nom</key>
+		<string>ASTI</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 21 septembre au 5 octobre</string>
+		<key>description</key>
+		<string>Départ en stage de géologie dans les Alpes pour les 1A</string>
+		<key>image</key>
+		<string>geol.jpg</string>
+		<key>nom</key>
+		<string>Stage géologie</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>27/09/11</string>
+		<key>description</key>
+		<string>Rentrée des élèves de troisième année</string>
+		<key>image</key>
+		<string>rentree3A.jpg</string>
+		<key>nom</key>
+		<string>Rentrée 3A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 10 octobre au 17 octobre</string>
+		<key>description</key>
+		<string>Parrainage entre les 1A et les 2A clôturé par une soirée dans un grand hôtel parisien</string>
+		<key>image</key>
+		<string>soiree-parrainage.jpg</string>
+		<key>nom</key>
+		<string>Soirée parrainage</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>13/10/11</string>
+		<key>description</key>
+		<string>Forum d&apos;Acte d&apos;Entreprendre : présentation des projets des élèves de 2A aux 1A</string>
+		<key>image</key>
+		<string>forumAE.jpg</string>
+		<key>nom</key>
+		<string>Forum AE</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>14/10/11</string>
+		<key>description</key>
+		<string>Tournoi sportif entre les différentes écoles du groupe ParisTech</string>
+		<key>image</key>
+		<string>paristech.jpg</string>
+		<key>nom</key>
+		<string>Tournoi ParisTech</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>03/11/11</string>
+		<key>description</key>
+		<string>Forum avec les entreprises organisé avec les Ponts, l&apos;ENSTA et l&apos;ENSAE</string>
+		<key>image</key>
+		<string>forum-trium.jpg</string>
+		<key>nom</key>
+		<string>Forum Trium</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 15 novembre au 22 novembre</string>
+		<key>description</key>
+		<string>Semaine ATHENS : échange avec des universités européennes pour les 2A et 3A</string>
+		<key>image</key>
+		<string>athens.jpg</string>
+		<key>nom</key>
+		<string>Semaine ATHENS</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 15 novembre au 4 décembre</string>
+		<key>description</key>
+		<string>MIG (Métier de l&apos;Ingénieur Généraliste) : projets de groupe pour une entreprise par les 1A</string>
+		<key>image</key>
+		<string>mig.jpg</string>
+		<key>nom</key>
+		<string>MIG</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>06/12/11</string>
+		<key>description</key>
+		<string>Petite Revue : 4 heures de spectacle des 3A</string>
+		<key>image</key>
+		<string>petite-revue.jpg</string>
+		<key>nom</key>
+		<string>Petite Revue</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>du 20 décembre au 3 janvier</string>
+		<key>description</key>
+		<string>Vacances de Noël pour tous les élèves</string>
+		<key>image</key>
+		<string>vacances-noel.jpg</string>
+		<key>nom</key>
+		<string>Vacances de Noël</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 10 janvier au 17 janvier</string>
+		<key>description</key>
+		<string>Ski-Math pour les 2A</string>
+		<key>image</key>
+		<string>ski-maths.jpg</string>
+		<key>nom</key>
+		<string>Ski-Maths</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 30 janvier au 5 février</string>
+		<key>description</key>
+		<string>Vacances pour les 2A</string>
+		<key>image</key>
+		<string>vacances.jpg</string>
+		<key>nom</key>
+		<string>Vacances 2A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Mois de février</string>
+		<key>description</key>
+		<string>Stage ouvrier pour les 1A</string>
+		<key>image</key>
+		<string>stage-ouvrier.jpg</string>
+		<key>nom</key>
+		<string>Stage d&apos;exécution</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 14 au 21 mars</string>
+		<key>description</key>
+		<string>Deuxième semaine ATHENS uniquement pour les 2A</string>
+		<key>image</key>
+		<string>athens2.jpg</string>
+		<key>nom</key>
+		<string>Deuxième semaine ATHENS</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 20 au 22 mars</string>
+		<key>description</key>
+		<string>Challenge Centrale Lyon : tournoi sportif organisé par Centrale Lyon regroupant plus d&apos;une vingtaine d&apos;écoles et plus d&apos;une dizaine de sports</string>
+		<key>image</key>
+		<string>ccl.jpg</string>
+		<key>nom</key>
+		<string>Challenge Centrale Lyon</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Première semaine d&apos;avril</string>
+		<key>description</key>
+		<string>Campagne BDE menée par deux listes de 1A</string>
+		<key>image</key>
+		<string>campagnebde.jpg</string>
+		<key>nom</key>
+		<string>Campagne BDE</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 11 au 24 avril</string>
+		<key>description</key>
+		<string>Vacances de Pâques pour les 1A et 2A / semaine ski</string>
+		<key>image</key>
+		<string>semaine-ski.jpg</string>
+		<key>nom</key>
+		<string>Vacances 1A et 2A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Du 22 au 26 avril</string>
+		<key>description</key>
+		<string>Cartel des Mines : tournoi sportif entre les écoles du groupe GEM</string>
+		<key>image</key>
+		<string>cartel.jpg</string>
+		<key>nom</key>
+		<string>Cartel des Mines</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>début juin</string>
+		<key>description</key>
+		<string>Départ en stage ingénieur des 2A</string>
+		<key>image</key>
+		<string>stage-inge.jpg</string>
+		<key>nom</key>
+		<string>Stage ingénieur 2A</string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Mois de juillet et mois d&apos;aôut</string>
+		<key>description</key>
+		<string>Vacances d&apos;été 1A</string>
+		<key>image</key>
+		<string>vacances-ete.jpg</string>
+		<key>nom</key>
+		<string>Vacances 1A  </string>
+	</dict>
+	<dict>
+		<key>date</key>
+		<string>Courant juillet</string>
+		<key>description</key>
+		<string>Voyage promo dans un pays étranger pour les 3A</string>
+		<key>image</key>
+		<string>voyage-promo.jpg</string>
+		<key>nom</key>
+		<string>Voyage Promo</string>
+	</dict>
+</array>
+</plist>

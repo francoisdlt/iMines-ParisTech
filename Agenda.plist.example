@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>nom</key>
+		<string>Sélectionne un évènement...</string>
+		<key>date</key>
+		<string>date de l&apos;évènement</string>
+		<key>description</key>
+		<string>Description de l&apos;évènement : sélectionne un évènement pour voir sa description...</string>
+		<key>image</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>Rentrée</string>
+		<key>date</key>
+		<string>4 septembre</string>
+		<key>description</key>
+		<string>Rentrée des élèves du cycle IC</string>
+		<key>image</key>
+		<string>rentree.jpg</string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>WEI</string>
+		<key>date</key>
+		<string>mi-septembre</string>
+		<key>description</key>
+		<string>WE d&apos;intégration dans un lieu tenu secret</string>
+		<key>image</key>
+		<string>wei.jpg</string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>Stage Géologie</string>
+		<key>date</key>
+		<string>juste après le WEI</string>
+		<key>description</key>
+		<string>2 semaines à parcourir les Alpes dans une ambiance karstique</string>
+		<key>image</key>
+		<string>geologie.jpg</string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>test</string>
+		<key>date</key>
+		<string></string>
+		<key>description</key>
+		<string></string>
+		<key>image</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>test</string>
+		<key>date</key>
+		<string></string>
+		<key>description</key>
+		<string></string>
+		<key>image</key>
+		<string></string>
+	</dict>
+	<dict>
+		<key>nom</key>
+		<string>test</string>
+		<key>date</key>
+		<string></string>
+		<key>description</key>
+		<string></string>
+		<key>image</key>
+		<string></string>
+	</dict>
+</array>
+</plist>
