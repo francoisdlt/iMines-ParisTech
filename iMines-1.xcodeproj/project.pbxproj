@@ -203,6 +203,7 @@
 		0F8AD9AA11F231BD0013D561 /* ReseauxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8AD9A811F231BD0013D561 /* ReseauxTableViewController.m */; };
 		0F9450C2125E18C700817DC4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F9450C1125E18C700817DC4 /* CoreData.framework */; };
 		0F9450CB125E273F00817DC4 /* Eleve.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F9450CA125E273F00817DC4 /* Eleve.m */; };
+		0F99D47313DCB8D7001AC0E8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0F99D47213DCB8D6001AC0E8 /* LICENSE */; };
 		0FA74EBA1316DBEB00E1B780 /* RechercheTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA74EB81316DBEB00E1B780 /* RechercheTVC.xib */; };
 		0FA74EE71316DE8F00E1B780 /* presentation-recherche.html in Resources */ = {isa = PBXBuildFile; fileRef = 0FA74EE61316DE8F00E1B780 /* presentation-recherche.html */; };
 		0FAC96D612F983160021B050 /* presentation_BDE.html in Resources */ = {isa = PBXBuildFile; fileRef = 0FAC96D512F983160021B050 /* presentation_BDE.html */; };
@@ -504,6 +505,7 @@
 		0F9450C1125E18C700817DC4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0F9450C9125E273F00817DC4 /* Eleve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eleve.h; sourceTree = "<group>"; };
 		0F9450CA125E273F00817DC4 /* Eleve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Eleve.m; sourceTree = "<group>"; };
+		0F99D47213DCB8D6001AC0E8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0FA74EB81316DBEB00E1B780 /* RechercheTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechercheTVC.xib; sourceTree = "<group>"; };
 		0FA74EE61316DE8F00E1B780 /* presentation-recherche.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "presentation-recherche.html"; sourceTree = "<group>"; wrapsLines = 1; };
 		0FAC96D512F983160021B050 /* presentation_BDE.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = presentation_BDE.html; sourceTree = "<group>"; };
@@ -787,8 +789,6 @@
 		0F512FC812F609EB00ECDBC7 /* ASI */ = {
 			isa = PBXGroup;
 			children = (
-				0F3EDB1312BE5FFB00D88D55 /* asyncimageview.m */,
-				0F3EDB1412BE5FFB00D88D55 /* asyncimageview.h */,
 				0F612B5812BF79D70090EB71 /* Reachability.h */,
 				0F612B5912BF79D70090EB71 /* Reachability.m */,
 				0F612B3C12BF79B40090EB71 /* ASIAuthenticationDialog.h */,
@@ -1129,6 +1129,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				0F99D47213DCB8D6001AC0E8 /* LICENSE */,
 				0F0F91D811F6ECE300155287 /* HTML */,
 				0FCD9E62122D35AF002290A0 /* SGS */,
 				0FCD9E61122D35A7002290A0 /* Emploi du Temps */,
@@ -1178,6 +1179,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0F3EDB1312BE5FFB00D88D55 /* asyncimageview.m */,
+				0F3EDB1412BE5FFB00D88D55 /* asyncimageview.h */,
 				0FDD7D93131047C80049DDD7 /* institut-carnot.html */,
 				0F7BC25212F883B500407958 /* 09BENOUD.png */,
 				0F7BC25312F883B500407958 /* 09DECROI.png */,
@@ -1468,6 +1471,7 @@
 				0FDD7D94131047C80049DDD7 /* institut-carnot.html in Resources */,
 				0FA74EBA1316DBEB00E1B780 /* RechercheTVC.xib in Resources */,
 				0FA74EE71316DE8F00E1B780 /* presentation-recherche.html in Resources */,
+				0F99D47313DCB8D7001AC0E8 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
