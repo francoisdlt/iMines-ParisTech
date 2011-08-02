@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F04D96F13E8914F00EBDC5B /* VDMTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F04D96D13E8914F00EBDC5B /* VDMTVC.m */; };
+		0F04D97013E8914F00EBDC5B /* VDMTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F04D96E13E8914F00EBDC5B /* VDMTVC.xib */; };
 		0F0A789E12CB76B000C267A7 /* classements.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F0A789D12CB76B000C267A7 /* classements.html */; };
 		0F0A78C812CB7E5B00C267A7 /* histoire.html in Resources */ = {isa = PBXBuildFile; fileRef = 0F0A78C712CB7E5B00C267A7 /* histoire.html */; };
 		0F0CCF56124119ED002C8C08 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0CCF55124119ED002C8C08 /* CFNetwork.framework */; };
@@ -276,6 +278,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F04D96C13E8914F00EBDC5B /* VDMTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDMTVC.h; sourceTree = "<group>"; };
+		0F04D96D13E8914F00EBDC5B /* VDMTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDMTVC.m; sourceTree = "<group>"; };
+		0F04D96E13E8914F00EBDC5B /* VDMTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VDMTVC.xib; sourceTree = "<group>"; };
 		0F0A789D12CB76B000C267A7 /* classements.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = classements.html; sourceTree = "<group>"; wrapsLines = 1; };
 		0F0A78C712CB7E5B00C267A7 /* histoire.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = histoire.html; sourceTree = "<group>"; wrapsLines = 1; };
 		0F0CCF55124119ED002C8C08 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -952,6 +957,9 @@
 				0FCD9DFC122D2E05002290A0 /* VDMViewController.h */,
 				0FCD9DFD122D2E05002290A0 /* VDMViewController.m */,
 				0FCD9DFE122D2E05002290A0 /* VDMViewController.xib */,
+				0F04D96C13E8914F00EBDC5B /* VDMTVC.h */,
+				0F04D96D13E8914F00EBDC5B /* VDMTVC.m */,
+				0F04D96E13E8914F00EBDC5B /* VDMTVC.xib */,
 			);
 			name = VDM;
 			sourceTree = "<group>";
@@ -1472,6 +1480,7 @@
 				0FA74EBA1316DBEB00E1B780 /* RechercheTVC.xib in Resources */,
 				0FA74EE71316DE8F00E1B780 /* presentation-recherche.html in Resources */,
 				0F99D47313DCB8D7001AC0E8 /* LICENSE in Resources */,
+				0F04D97013E8914F00EBDC5B /* VDMTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,6 +1538,7 @@
 				0FE8425612FC30770018A5BD /* AgendaVC.m in Sources */,
 				0FE8426812FC33F80018A5BD /* EvenementPickerController.m in Sources */,
 				0FD142DA12FF1AE9007EB81A /* AujourdhuiVC.m in Sources */,
+				0F04D96F13E8914F00EBDC5B /* VDMTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
