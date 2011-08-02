@@ -30,7 +30,7 @@
     UIActivityIndicatorView *activityIndicator;
     CGSize cellSize;
     NSXMLParser * rssParser;
-    NSMutableArray * stories;
+    NSMutableArray * listeVDM;
     
     // a temporary item; added to the "stories" array one at a time, and cleared for the next one
     NSMutableDictionary * item;
@@ -43,7 +43,7 @@
 }
 @property (nonatomic, assign) IBOutlet UITableViewCell *tvCell;
 @property (nonatomic, retain) IBOutlet UITableView *VDMTable;
-@property (nonatomic, retain) NSMutableArray *stories;
+@property (nonatomic, retain) NSMutableArray *listeVDM;
 
 //- (void)parseXMLFileAtURL:(NSString *)URL;
 

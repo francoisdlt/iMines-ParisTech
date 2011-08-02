@@ -22,7 +22,7 @@
 #import "VDMTVC.h"
 
 @implementation VDMTVC
-@synthesize tvCell, VDMTable, stories;
+@synthesize tvCell, VDMTable, listeVDM;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,7 +46,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -91,16 +90,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [listeVDM count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,7 +183,7 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	
 	
-	stories = [[NSMutableArray alloc] init];
+	listeVDM = [[NSMutableArray alloc] init];
 	
 	//you must then convert the path to a proper NSURL or it won't work
 	NSURL *xmlURL = [NSURL URLWithString:URL];
@@ -248,7 +245,7 @@
 		[item setObject:currentContent forKey:@"content"];
 		[item setObject:currentNumberOfDislikes forKey:@"numberOfDislikes"];
 		[item setObject:currentNumberOfLikes forKey:@"numberOfLikes"];
-		[stories addObject:[item copy]];
+		[listeVDM addObject:[item copy]];
 		//NSLog(@"adding story: %@", currentNom);
 	}
 }
@@ -278,8 +275,8 @@
 	[activityIndicator removeFromSuperview];
 	
 	//NSLog(@"all done!");
-	//NSLog(@"stories array has %d items", [stories count]);
-	if ([stories count]==0) {
+	//NSLog(@"listeVDM array has %d items", [listeVDM count]);
+	if ([listeVDM count]==0) {
 		
 		// aucune VDM
 		UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Aucune VDM :" message:@"Pas de VDM pour l'instant, reviens plus tard!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
