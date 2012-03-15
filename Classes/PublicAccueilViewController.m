@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #import "StandardWebView.h"
 #import "VieDesElevesVC.h"
 #import "HTMLViewController.h"
-#import "VDMViewController.h"
+#import "VDMTVC.h"
 #import "VendomeViewController.h"
 #import "TrombiTVC.h"
 #import "EmploiDuTempsTVC.h"
@@ -117,10 +117,10 @@ static int kNbPages = 2;
 			break;
 		case TAG_VDM:
 			NSLog(@"VDM");
-			VDMViewController *vdmvc = [[VDMViewController alloc] init];
-			vdmvc.title = @"VieDeMineur";
-			[self.navigationController pushViewController:vdmvc animated:YES];
-			[vdmvc release];
+			VDMTVC *vdmtvc = [[VDMTVC alloc] initWithStyle:UITableViewStylePlain];
+			vdmtvc.title = @"VieDeMineur";
+			[self.navigationController pushViewController:vdmtvc animated:YES];
+			[vdmtvc release];
 			break;
 		case TAG_VENDOME:
 			NSLog(@"VENDOME");

@@ -1,3 +1,4 @@
+
 //
 //  VDMTVC.m
 //  iMines-1
@@ -20,8 +21,23 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #import "VDMTVC.h"
+#include "SBJson.h"
+#import "VDMShowCommentsTVC.h"
+
+#define MAX_HEIGHT 20000.0f
+#define CONTENT_FONT_SIZE 14.0f
+#define CELL_CONTENT_MARGIN 5.0f
+#define CELL_CONTENT_TOP_MARGIN 16.0f
+
+#define TAG_DATE_LABEL 2
+#define TAG_AUTHOR_LABEL 3
+#define TAG_CATEGORY_LABEL 6
+#define TAG_NB_LIKES_LABEL 4
+#define TAG_NB_DISLIKES_LABEL 5
+#define TAG_CONTENT_TXTVIEW 1
 
 @implementation VDMTVC
+
 @synthesize tvCell, VDMTable, listeVDM;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -46,11 +62,38 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"VDM" style:UIBarButtonItemStyleBordered target:self action:nil];
+	self.navigationItem.backBarButtonItem = backButton;
+	[backButton release];
+    isRefreshing = FALSE;
+    isAddingNextPage = FALSE;
+    currentPage = 1;
+    listeVDM = [[NSMutableArray alloc] init];
+    self.tableView.backgroundColor = [UIColor colorWithRed:163.0/255.0 green:196.0/255.0 blue:229.0/255.0 alpha:1];
+    self.tableView.separatorColor = [UIColor grayColor];
+    if ([listeVDM count] == 0) {
+        isAddingNextPage = TRUE;
+        [self fetchVDMlist];               
+    }
+    
+    // On ajoute le bouton "Rédiger" à droite de la Navigation Bar
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(writeVDM)];
+}
+
+- (void)fetchVDMlist
+{
+    NSString *url = @"http://www.viedemineur.fr/imines.php?action=read&page=1"; // au cas où...
+    if(isAddingNextPage){
+        url = [@"http://www.viedemineur.fr/imines.php?action=read&page=" stringByAppendingFormat:@"%d",currentPage];
+    }
+    else if (isRefreshing){
+        url = @"http://www.viedemineur.fr/imines.php?action=read&page=1";
+    }
+    responseData = [[NSMutableData data] retain];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+   
+    
 }
 
 - (void)viewDidUnload
@@ -82,8 +125,129 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    
+    
+    
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
+
+- (void)writeVDM {
+    // L'utilisateur a cliqué sur l'icône "Composer"
+    // On affiche le Modal View Controller chargé de composer une VDM
+    
+    ComposeVDMVC *cvdmvc = [[ComposeVDMVC alloc] init];
+    [cvdmvc setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    cvdmvc.delegate = self;
+    [self presentModalViewController:cvdmvc animated:YES];
+    
+}
+
+#pragma mark - Connection Management
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	[responseData setLength:0];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	[responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+	NSLog(@"Connection failed: %@", [error description]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+	[connection release];
+    NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+	[responseData release];
+    if(isAddingNextPage) {
+        [listeVDM addObjectsFromArray:[responseString JSONValue]];
+        isAddingNextPage = FALSE;
+        currentPage++;
+    }
+    else if(isRefreshing) {
+        [listeVDM removeAllObjects];
+        [listeVDM addObjectsFromArray:[responseString JSONValue]];
+        isRefreshing = FALSE;
+    }
+    //NSLog(@"liste : %@",listeVDM);
+    //NSLog(@"element 1 - body : %@",[[listeVDM objectAtIndex:1] objectForKey:@"body"]);
+    
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    if ([challenge previousFailureCount] == 0)
+    {
+        NSLog(@"received authentication challenge");
+        
+        NSURLCredential *newCredential;
+        
+        NSUserDefaults *defaultSettings = [NSUserDefaults standardUserDefaults];
+        NSString *userLogin = [defaultSettings stringForKey:@"login_vdm"];
+        NSString *userPassword = [defaultSettings stringForKey:@"password_vdm"];
+        
+        if(userLogin != nil && userPassword !=nil){
+        
+        newCredential=[NSURLCredential credentialWithUser:userLogin
+                                                 password:userPassword
+                                              persistence:NSURLCredentialPersistenceForSession];
+        
+        
+        NSLog(@"credential created");
+        
+        [[challenge sender] useCredential:newCredential forAuthenticationChallenge:challenge];
+        
+        NSLog(@"responded to authentication challenge");
+        }
+        else
+        {
+            NSLog(@"previous authentication failure");
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"VieDeMineur" 
+                                                            message:@"Ta vie c'est de la Mine et c'est clairement la base ? Poste, commente et valide les meilleures tranches de vie de l'école. \nSi tu as un compte à l'école, va remplir la section VDM dans les paramètres de l'iPhone."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK" 
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        
+    }
+    else
+    {
+        NSLog(@"previous authentication failure");
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"VieDeMineur" 
+                                                        message:@"Ta vie c'est de la Mine et c'est clairement la base ? Poste, commente et valide les meilleures tranches de vie de l'école. \nSi tu as un compte à l'école, va remplir la section VDM dans les paramètres de l'iPhone."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
+#pragma mark - Compose VDM Delegate 
+
+
+- (IBAction)ComposeVDMVC:(ComposeVDMVC *)cvdmvc shouldDismiss:(BOOL)shouldDismiss {
+    // Le Modal View Controller demande à être masqué
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - Pull refresh
+
+- (void) refresh {
+    if (!isRefreshing) {
+        isRefreshing = TRUE;
+        [self fetchVDMlist];
+        [self stopLoading];
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -102,193 +266,90 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"VDMtvCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        [[NSBundle mainBundle] loadNibNamed:@"VDMtvCell" owner:self options:nil];
+        cell = tvCell;
+        self.tvCell = nil;
+    }
+    if ([listeVDM count] >= indexPath.row){
+        UILabel *authorLabel, *dateLabel, *catLabel;
+        UITextView *contentTextView;
+        UILabel *numberOfLikesLabel, *numberOfDislikesLabel;
+        
+        authorLabel = (UILabel *)[cell viewWithTag:TAG_AUTHOR_LABEL];
+        authorLabel.text = [@"par " stringByAppendingString:[[listeVDM objectAtIndex:indexPath.row] objectForKey:@"poster"]];
+        
+        dateLabel = (UILabel *)[cell viewWithTag:TAG_DATE_LABEL];
+        dateLabel.text = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"date"];
+        
+        numberOfLikesLabel = (UILabel *)[cell viewWithTag:TAG_NB_LIKES_LABEL];
+        numberOfLikesLabel.text = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"like"];
+        
+        numberOfDislikesLabel = (UILabel *)[cell viewWithTag:TAG_NB_DISLIKES_LABEL];
+        numberOfDislikesLabel.text = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"dislike"];
+        
+        catLabel = (UILabel *)[cell viewWithTag:TAG_CATEGORY_LABEL];
+        catLabel.text = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"name"];
+        catLabel.layer.borderWidth = 1.0f;
+        catLabel.layer.cornerRadius = 5;
+        catLabel.layer.borderColor = [UIColor grayColor].CGColor;
+        
+        contentTextView = (UITextView *)[cell viewWithTag:TAG_CONTENT_TXTVIEW];
+        
+        // Calcul de la taille du textView en fonction du texte qu'il contient
+        NSString *contentText = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"body"];
+        CGSize size = [contentText sizeWithFont:[UIFont systemFontOfSize:CONTENT_FONT_SIZE]
+                              constrainedToSize:CGSizeMake(self.view.frame.size.width - 2*CELL_CONTENT_MARGIN, MAX_HEIGHT)
+                                  lineBreakMode:UILineBreakModeWordWrap];
+        
+        [contentTextView setFont:[UIFont systemFontOfSize:CONTENT_FONT_SIZE]];
+        CGFloat height = MAX(size.height, 44.0f);
+        [contentTextView setFrame:CGRectMake(CELL_CONTENT_MARGIN, CELL_CONTENT_TOP_MARGIN, self.view.frame.size.width-2*CELL_CONTENT_MARGIN, height+30)];
+        contentTextView.text = contentText;
+        contentTextView.layer.cornerRadius = 5;
+        contentTextView.layer.borderWidth = 1.0f;
+        //[contentTextView release];
+        cell.layer.borderColor = [UIColor grayColor].CGColor;
     }
     
-    // Configure the cell...
+    if(indexPath.row == [listeVDM count]-1) {
+        // On a atteint la dernière VDM -> on lance la page suivante
+        isAddingNextPage = TRUE;
+        [self fetchVDMlist];
+    }
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-}
-
-#pragma mark -
-#pragma mark RSS Parsing
-
-- (void)parseXMLFileAtURL:(NSString *)URL {
-	
-	//On lance le activity indicator
-	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];	
-	CGRect frame = activityIndicator.frame;
-	frame.origin = CGPointMake(self.view.frame.size.width/2 - 15.0, self.view.frame.size.height/2 - 15.0);
-	activityIndicator.frame = frame;
-	activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-	[self.tableView addSubview:activityIndicator];
-	[activityIndicator startAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	
-	
-	listeVDM = [[NSMutableArray alloc] init];
-	
-	//you must then convert the path to a proper NSURL or it won't work
-	NSURL *xmlURL = [NSURL URLWithString:URL];
-	
-	// here, for some reason you have to use NSClassFromString when trying to alloc NSXMLParser, otherwise you will get an object not found error
-	// this may be necessary only for the toolchain
-	rssParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-	
-	// Set self as the delegate of the parser so that it will receive the parser delegate methods callbacks.
-	[rssParser setDelegate:self];
-	
-	// Depending on the XML document you're parsing, you may want to enable these features of NSXMLParser.
-	[rssParser setShouldProcessNamespaces:NO];
-	[rssParser setShouldReportNamespacePrefixes:NO];
-	[rssParser setShouldResolveExternalEntities:NO];
-	
-	[rssParser parse];
-}
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-	//NSLog(@"found file and started parsing");
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSString * errorString = [NSString stringWithFormat:@"Problème de téléchargement ! (Error code %i )", [parseError code]];
-	NSLog(@"error parsing XML: %@", errorString);
-	
-	UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Erreur :" message:errorString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[activityIndicator stopAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[errorAlert show];
-	[errorAlert release];
-}
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
-	//NSLog(@"found this element: %@", elementName);
-	currentElement = [elementName copy];
-	
-	if ([elementName isEqualToString:@"item"]) { // Si on tombe sur une nouvelle entrée
-		// clear out our story item caches...
-		item = [[NSMutableDictionary alloc] init];
-		currentAuthor = [[NSMutableString alloc] init];
-		currentCategory = [[NSMutableString alloc] init];
-		currentContent = [[NSMutableString alloc] init];
-		currentNumberOfDislikes = [[NSMutableString alloc] init];
-		currentNumberOfLikes = [[NSMutableString alloc] init];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-	
-	//NSLog(@"ended element: %@", elementName);
-	if ([elementName isEqualToString:@"item"]) {
-		
-		// save values to an item, then store that item into the array...
-		
-		[item setObject:currentAuthor forKey:@"author"];
-		[item setObject:currentCategory forKey:@"category"];
-		[item setObject:currentContent forKey:@"content"];
-		[item setObject:currentNumberOfDislikes forKey:@"numberOfDislikes"];
-		[item setObject:currentNumberOfLikes forKey:@"numberOfLikes"];
-		[listeVDM addObject:[item copy]];
-		//NSLog(@"adding story: %@", currentNom);
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-	//NSLog(@"found characters: %@", string);
-	// save the characters for the current item...
+    // TODO : afficher un (Table?)VC avec la liste des commentaires associés à la VDM sélectionnée + bouton pour liker/disliker
     
-    //TODO : Compléter les valeurs de correspondance des champs XML
-	if ([currentElement isEqualToString:@"##"]) {
-		[currentAuthor appendString:string];
-	} else if ([currentElement isEqualToString:@"##"]) {
-		[currentCategory appendString:string];
-	} else if ([currentElement isEqualToString:@"##"]) {
-		[currentContent appendString:string];
-	} else if ([currentElement isEqualToString:@"##"]) {
-		[currentNumberOfDislikes appendString:string];
-	} else if ([currentElement isEqualToString:@"##"]) {
-		[currentNumberOfLikes appendString:string];
-	}
+    // Navigation logic may go here. Create and push another view controller.
+    int idVDM = [[[listeVDM objectAtIndex:indexPath.row] objectForKey:@"id"] intValue];
+    VDMShowCommentsTVC *vdmsctvc = [[VDMShowCommentsTVC alloc] initWithStyle:UITableViewStyleGrouped andID:idVDM];
+    NSString *title = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"name"];
+    vdmsctvc.title = [title stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[title substringToIndex:1] capitalizedString]];
+    
+    [self.navigationController pushViewController:vdmsctvc animated:YES];
+    [vdmsctvc release];
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	
-	[activityIndicator stopAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[activityIndicator removeFromSuperview];
-	
-	//NSLog(@"all done!");
-	//NSLog(@"listeVDM array has %d items", [listeVDM count]);
-	if ([listeVDM count]==0) {
-		
-		// aucune VDM
-		UIAlertView * errorAlert = [[UIAlertView alloc] initWithTitle:@"Aucune VDM :" message:@"Pas de VDM pour l'instant, reviens plus tard!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		
-		[errorAlert show];
-		[errorAlert release];
-		
-	}
-	[VDMTable reloadData];
-	[self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-	
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Calcul de la hauteur de la cellule en fonction du texte du textView (idem que dans cellForRowAtIndexPath:)
+    
+    NSString *contentText = [[listeVDM objectAtIndex:indexPath.row] objectForKey:@"body"];
+    CGSize size = [contentText sizeWithFont:[UIFont systemFontOfSize:CONTENT_FONT_SIZE]
+                          constrainedToSize:CGSizeMake(self.view.frame.size.width - 2*CELL_CONTENT_MARGIN, MAX_HEIGHT)
+                              lineBreakMode:UILineBreakModeWordWrap];
+    CGFloat height = MAX(size.height, 44.0f);
+    // On ajoute un offset pour les autres éléments
+    return height+21+60;
 }
-
 
 @end

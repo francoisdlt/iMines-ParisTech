@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAG_VIEDESELEVES 3
 #define TAG_AGENDA 18
 
-#import "CreditsViewController.h";
+#import "CreditsViewController.h"
 
 @interface PublicAccueilViewController : UIViewController <CreditsViewControllerDelegate, UIScrollViewDelegate> {
 

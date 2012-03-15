@@ -21,30 +21,36 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "PullRefreshTableViewController.h"
+#import "ComposeVDMVC.h"
+#include "SBJson.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface VDMTVC : UITableViewController <NSXMLParserDelegate>
+
+@interface VDMTVC : PullRefreshTableViewController <ComposeVDMVCDelegate>
 {
+    
     
     IBOutlet UITableViewCell *tvCell;
     IBOutlet UITableView * VDMTable;
+    
     UIActivityIndicatorView *activityIndicator;
-    CGSize cellSize;
-    NSXMLParser * rssParser;
-    NSMutableArray * listeVDM;
+
+    NSMutableArray * listeVDM; // Contient la liste des VDM (chaque item est une VDM)
     
-    // a temporary item; added to the "stories" array one at a time, and cleared for the next one
-    NSMutableDictionary * item;
+    NSMutableData *responseData; // utilisé pour stocker au fur et à mesure les données téléchargées.
     
-    // it parses through the document, from top to bottom...
-    // we collect and cache each sub-element value, and then save each item to our array.
-    // we use these to track each current item, until it's ready to be added to the "stories" array
-    NSString * currentElement;
-    NSMutableString *currentContent, *currentAuthor, * currentNumberOfLikes , *currentNumberOfDislikes, *currentCategory;
+    BOOL isRefreshing; // pour éviter qu'on rafraichisse alors qu'on a pas fini de rafraichir (t'as compris ?)
+    int currentPage;
+    BOOL isAddingNextPage;
+    
 }
+
 @property (nonatomic, assign) IBOutlet UITableViewCell *tvCell;
 @property (nonatomic, retain) IBOutlet UITableView *VDMTable;
 @property (nonatomic, retain) NSMutableArray *listeVDM;
 
-//- (void)parseXMLFileAtURL:(NSString *)URL;
-
+- (void)writeVDM; // appelé lorsque l'utilisateur clique sur "Composer". Affiche un Modal View Controller pour rédiger une VDM (seulement si l'utilisateur a rempli ses identifiants CCSI)
+- (void)fetchVDMlist; // rafraîchit la liste des VDM
 @end
+

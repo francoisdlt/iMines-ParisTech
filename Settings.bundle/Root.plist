@@ -144,6 +144,30 @@
 			<key>IsSecure</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>VDM</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Login</string>
+			<key>Key</key>
+			<string>login_vdm</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Mot de passe</string>
+			<key>Key</key>
+			<string>password_vdm</string>
+			<key>IsSecure</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>

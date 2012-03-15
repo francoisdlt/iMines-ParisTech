@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     [super viewDidLoad];
 	// Construction de la requête
 	NSUserDefaults *defaultSettings = [NSUserDefaults standardUserDefaults];
-	NSURL *urlSGS = [[NSURL alloc] initWithString:@"http://sgs.ensmp.fr/prod/sgs/ensmp/php_login.php"];
+	NSURL *urlSGS = [[NSURL alloc] initWithString:@"https://sgs.mines-paristech.fr/prod/sgs/ensmp/php_login.php"];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:urlSGS];
 	[urlSGS release];
@@ -92,7 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	NSString *responseString = [request responseString];
 	//NSLog(@"Reponse : %@", responseString);
 	if([responseString rangeOfString:@"Vos identifiants sont incorrects"].location == NSNotFound){
-		responseString = [responseString stringByReplacingOccurrencesOfString:@"/prod/sgs" withString:@"http://sgs.ensmp.fr/prod/sgs"];
+		responseString = [responseString stringByReplacingOccurrencesOfString:@"/prod/sgs" withString:@"https://sgs.mines-paristech.fr.fr/prod/sgs"];
 		[webView loadHTMLString:responseString baseURL:nil];
 	}
 	else{
