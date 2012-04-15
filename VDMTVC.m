@@ -4,6 +4,7 @@
 //  iMines-1
 //
 //  Created by François de la Taste on 02/08/11.
+// Test GitHub
 /*
  This file is part of iMines ParisTech.
  
